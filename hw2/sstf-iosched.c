@@ -25,7 +25,7 @@ static void FIFO_Merge(struct request_queue *q, struct request *rq, struct reque
 	list_del_init(&next->queuelist);
 }
 
-static int sstf_dispatch(struct request_queue *q, int force)
+static int sstf_dispatch(struct request_queue *q, int force) 
 {
 	struct sstf_Data *sd = q->elevator->elevator_data;
 
