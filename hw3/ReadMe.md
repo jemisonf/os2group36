@@ -1,14 +1,15 @@
-#Discussion of Linux Device Drivers: https://lwn.net/Kernel/LDD3/
-#Link to Block Driver Source: (Used in project) http://blog.superpat.com/2010/05/04/a-simple-block-driver-for-linux-kernel-2-6-31/
-#This link also includes: the Makefile and Module examples to compare with CryptoLoop modules
-#This above Code was combined with the CrytoLoop enabling Module Found here: https://elixir.bootlin.com/linux/v3.14.26/source/drivers/block/cryptoloop.c
-#SOURCE FOR KERNEL MODULE COMMANDS: https://wiki.archlinux.org/index.php/Kernel_module
-##List of commands and HOW TO BUILD
-#Group 36
-In order to create Multiple Sessions to run concurrently software like tmux can be used 
-(or multiple instance of putty)
-tmux creation:  https://robots.thoughtbot.com/a-tmux-crash-course)
-Note: `prefix` is defined by default as `control-b`
+1. Discussion of Linux Device Drivers: https://lwn.net/Kernel/LDD3/
+1. Link to Block Driver Source: (Used in project) http://blog.superpat.com/2010/05/04/a-simple-block-driver-for-linux-kernel-2-6-31/
+1. This link also includes: the Makefile and Module examples to compare with CryptoLoop modules
+1. This above Code was combined with the CrytoLoop enabling 
+1. Module Found here: https://elixir.bootlin.com/linux/v3.14.26/source/drivers/block/cryptoloop.c
+1. SOURCE FOR KERNEL MODULE COMMANDS: https://wiki.archlinux.org/index.php/Kernel_module
+1. ##List of commands and HOW TO BUILD
+1. #Group 36
+1. In order to create Multiple Sessions to run concurrently software like tmux can be used 
+1. (or multiple instance of putty)
+1. tmux creation:  https://robots.thoughtbot.com/a-tmux-crash-course)
+1. Note: `prefix` is defined by default as `control-b`
 
 1. Make sure you have a kernel and the associated .ext3 and .bin files
 1. `cd linux-yocto-3.19/drivers/block`
