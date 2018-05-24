@@ -27,7 +27,7 @@ static char *super_secret_key = "defaultEncKey";
 module_param(super_secret_key, charp, 0400);
 
 //+ to be used in crypto functions
-struct cryptography_ciph *tfm;
+struct crypto_cipher *tfm;
 
 
 MODULE_LICENSE("Dual BSD/GPL");
@@ -65,8 +65,11 @@ static struct sbd_device {
 /*
  * Handle an I/O request.
  */
-static void sbd_transfer(struct sbd_device *dev, sector_t sector,
-	unsigned long nsect, char *buffer, int write) {
+static void sbd_transfer(struct sbd_device *dev, 
+		         sector_t sector,
+	                 unsigned long nsect, 
+			 char *buffer, 
+			 int write) {
 	unsigned long offset = sector * logical_block_size;
 	unsigned long nbytes = nsect * logical_block_size;
 	int i;
@@ -77,23 +80,23 @@ static void sbd_transfer(struct sbd_device *dev, sector_t sector,
 		return;
 	}
 
-	cryptography_ciph_setkey(tfm, super_secret_key, strlen(super_secret_key));
+	crypto_cipher_setkey(tfm, super_secret_key, strlen(super_secret_key));
 
 	
 	//+ Change to write functionality instead of memcpy from original
 	if (write){
-		for(i = 0; i < nbytes; i += cryptography_ciph_blocksize(tfm)){				
-			printk ("Enc byte %d of %d\n", i, cryptography_ciph_blocksize(tfm));
-			cryptography_ciph_encrypt_one(tfm, dev->data + offset + i, buffer + i);
+		for(i = 0; i < nbytes; i += crypto_cipher_blocksize(tfm)){				
+			printk ("Enc byte %d of %d\n", i, crypto_cipher_blocksize(tfm));
+			crypto_cipher_encrypt_one(tfm, dev->data + offset + i, buffer + i);
 		}
 	}
 
 	else{
-		for(i=0; i<nbytes; i += cryptography_ciph_blocksize(tfm)){
+		for(i=0; i<nbytes; i += crypto_cipher_blocksize(tfm)){
 
 			// if not a write operation it's a decryption
-			printk ("Decrypting byte %d of %d\n", i, cryptography_ciph_blocksize(tfm));
-			cryptography_ciph_decrypt_one(tfm, buffer + i, dev->data + offset + i);
+			printk ("Decrypting byte %d of %d\n", i, crypto_cipher_blocksize(tfm));
+			crypto_cipher_decrypt_one(tfm, buffer + i, dev->data + offset + i);
 		}
 	}
 	//+
@@ -113,7 +116,7 @@ static void sbd_request(struct request_queue *q) {
 			continue;
 		}
 		sbd_transfer(&Device, blk_rq_pos(req), blk_rq_cur_sectors(req),
-			req->buffer, rq_data_dir(req));
+			bio_data(req->bio), rq_data_dir(req));
 		if ( ! __blk_end_request_cur(req, 0) ) {
 			req = blk_fetch_request(q);
 		}
