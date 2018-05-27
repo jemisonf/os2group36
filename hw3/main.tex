@@ -163,73 +163,36 @@ This above Code was combined with the CrytoLoop enabling
 
 Module Found here: https://elixir.bootlin.com/linux/v3.14.26/source/drivers/block/cryptoloop.c
 %SOURCE FOR KERNEL MODULE COMMANDS: https://wiki.archlinux.org/index.php/Kernel_module
+
+How to build and test block driver:
+
 In order to create Multiple Sessions to run concurrently software like tmux can be used
 
-(or multiple instance of putty)
+Apply our patch file by running patch -p0 -i hw3.patch from the base of the linux-yocto directory.
 
-tmux creation: https://robots.thoughtbot.com/a-tmux-crash-course)
-
-Note: prefix is defined by default as control-b
-
-Make sure you have a kernel and the associated .ext3 and .bin files
-
-cd linux-yocto-3.19/drivers/block
-
-get a sbd example
-
-sbd.c
-Give your new driver a name, I will be using sbd.c in this example
-
-In drivers/block there is a Makefile. Edit it and add the line obj-\textdollar(CONFIG_BLK_DEV_SBD) += sbd.o (put it in a place where it looks like it might belong. Pretty much anywhere is fine)
-
-Save and close the Makefile
-
-Open up the Kconfig file in the same directory and add a new config entry for your new driver. You can use other entries in the file as an example. You don't need to include any dependencies or anything like that. All you need is a:
-
-config (which in this case would be BLK_DEV_SBD)
-tristate (the name that the driver will be listed under in the menuconfig)
-help (the description of the driver)
-Save and close the Kconfig file
-
-cd ../../
-
-make menuconfig
+Run make menuconfig
 
 Select Device Drivers
 
 Select Block devices
 
-Select this NEW Block Device. Press "M" to set it to be modular.
+Select SBD and press the spacebar. An "M" should appear between the angle brackets next to the name.
 
 Save and exit the configuration
 
-cd ../
+Run make -j4 all to build the kernel and all modules. You may see a warning from sbd.c but it should compile successfully.
 
-tmux (opens up a screen session) // this is optinal based on what you want
+Make sure you have a second terminal session open. We recommond using tmux new and then <CTRL+B><%> to open two vertical terminal sessions.
 
-Source the file that will configure bash settings to utilize the qemu environment: source /scratch/opt/environment-setup-i586-poky-linux
+In each terminal session, source the file that will configure bash settings to utilize the qemu environment with source /scratch/opt/environment-setup-i586-poky-linux
 
-(ctr-b) + c (creates a new screen) //tmux commant (use ctr-b + w) to view all tmux session
+Start the vm with qemu-system-i386 -gdb tcp::5622 -S -nographic -kernel linux-yocto-3.19/arch/x86/boot/bzImage -drive file=core-image-lsb-sdk-qemux86.ext3 -enable-kvm -usb -localtime -net user,hostwd=tcp::55360-:22 -net nic --no-reboot --append "root=/dev/hda rwconsole=ttyS0 debug". This will start with networking enabled and forward host port 55360 to port 22 on the virtual machine, allowing you to connect ssh and scp via port 55360.
 
-gdb
+Enter root as the username.
 
-ctr-b + n (takes you to the next screen, which should be the first screen you made)
+On the second terminal, from the base linux-yocto directory, run scp -P 55360 drivers/block/sbd.ko root@localhost:/home/root to transfer the kernel module to the virtual machine.
 
-Compile the kernel and then start it up in the vm with qemu-system-i386 -gdb tcp::5622 -S -nographic -kernel linux-yocto-3.19/arch/x86/boot/bzImage -drive file=core-image-lsb-sdk-qemux86.ext3 -enable-kvm -usb -localtime --no-reboot --append "root=/dev/hda rwconsole=ttyS0 debug"
-
-prefix + n (takes you to the next screen, which should be your gdb screen)
-
-target remote :5622
-
-Type continue. This will initiate the boot sequence of the VM from the port that GDB has connected to.
-
-ctr-b + n (you get the idea)
-
-Log in as root
-
-commands modified from https://wiki.archlinux.org/index.php/Kernel_module
-
-While in the VM, run: scp $(username)@os-class.engr.oregonstate.edu:/scratch/spring2018/group36/linux-yocto-3.19/drivers/block/$(driver).ko . This will transfer the driver into the VM. (both $() fields should be replaced with your associated values)
+In the terminal hosting the vm, run ls in the base directory for the root user. You should have a file called sbd.ko.
 
 to load the module: insmod sbd.ko
 
@@ -250,7 +213,7 @@ cat /mtn/$(folder name) reads from the module
 A grep for the sample string should return nothing if it is encrypted properly
 
 When you are done with the module, unmount it with umount /mtn
- 
+
 Remove the module with rmmod sbd.ko
 \end{minted}
 \end{document}
