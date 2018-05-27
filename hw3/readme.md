@@ -20,7 +20,7 @@
 1. Run `make -j4 all` to build the kernel and all modules. You may see a warning from sbd.c but it should compile successfully.
 1. Make sure you have a second terminal session open. We recommond using `tmux new` and then `<CTRL+B><%>` to open two vertical terminal sessions.
 1.  In each terminal session, source the file that will configure bash settings to utilize the qemu environment with `source /scratch/opt/environment-setup-i586-poky-linux`
-1. Start the vm with `qemu-system-i386 -gdb tcp::5622 -S -nographic -kernel linux-yocto-3.19/arch/x86/boot/bzImage -drive file=core-image-lsb-sdk-qemux86.ext3 -enable-kvm -usb -localtime -net user,hostwd=tcp::55360-:22 -net nic --no-reboot --append "root=/dev/hda rwconsole=ttyS0 debug"`. This will start with networking enabled and forward host port 55360 to port 22 on the virtual machine, allowing you to connect ssh and scp via port 55360.
+1. Start the vm with `qemu-system-i386 -gdb tcp::5536 -nographic -kernel arch/x86/boot/bzImage -drive file=core-image-lsb-sdk-qemux86.ext4,if=virtio -enable-kvm -usb -localtime -net user,hostfwd=tcp::55360-:22 -net nic --no-reboot --append "root=/dev/vda rw console=ttyS0 debug"`. This will start with networking enabled and forward host port 55360 to port 22 on the virtual machine, allowing you to connect ssh and scp via port 55360.
 1. Enter `root` as the username.
 1. On the second terminal, from the base linux-yocto directory, run `scp -P 55360 drivers/block/sbd.ko root@localhost:/home/root` to transfer the kernel module to the virtual machine.
 1. In the terminal hosting the vm, run `ls` in the base directory for the root user. You should have a file called `sbd.ko`.
