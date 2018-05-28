@@ -1,8 +1,26 @@
-Common subdirectories: drivers/block/aoe and ../block_backup/aoe
-Common subdirectories: drivers/block/drbd and ../block_backup/drbd
-diff -c drivers/block/Kconfig ../block_backup/Kconfig
-*** drivers/block/Kconfig	2018-05-26 16:56:44.247316436 -0700
---- ../block_backup/Kconfig	2018-05-26 16:55:40.575209360 -0700
+Common subdirectories: ../yocto_clean/linux-yocto-3.19/drivers/block/aoe and drivers/block/aoe
+Only in drivers/block/: brd.o
+Only in drivers/block/: .brd.o.cmd
+Only in drivers/block/: built-in.o
+Only in drivers/block/: .built-in.o.cmd
+Only in drivers/block/: cryptoloop.ko
+Only in drivers/block/: .cryptoloop.ko.cmd
+Only in drivers/block/: cryptoloop.mod.c
+Only in drivers/block/: cryptoloop.mod.o
+Only in drivers/block/: .cryptoloop.mod.o.cmd
+Only in drivers/block/: cryptoloop.o
+Only in drivers/block/: .cryptoloop.o.cmd
+Common subdirectories: ../yocto_clean/linux-yocto-3.19/drivers/block/drbd and drivers/block/drbd
+Only in drivers/block/: floppy.ko
+Only in drivers/block/: .floppy.ko.cmd
+Only in drivers/block/: floppy.mod.c
+Only in drivers/block/: floppy.mod.o
+Only in drivers/block/: .floppy.mod.o.cmd
+Only in drivers/block/: floppy.o
+Only in drivers/block/: .floppy.o.cmd
+diff -c ../yocto_clean/linux-yocto-3.19/drivers/block/Kconfig drivers/block/Kconfig
+*** ../yocto_clean/linux-yocto-3.19/drivers/block/Kconfig	2018-05-27 20:26:38.561847493 -0700
+--- drivers/block/Kconfig	2018-05-27 20:11:55.813281762 -0700
 ***************
 *** 33,38 ****
 --- 33,43 ----
@@ -17,12 +35,36 @@ diff -c drivers/block/Kconfig ../block_backup/Kconfig
   config AMIGA_FLOPPY
   	tristate "Amiga floppy support"
   	depends on AMIGA
-Common subdirectories: drivers/block/mtip32xx and ../block_backup/mtip32xx
-Common subdirectories: drivers/block/paride and ../block_backup/paride
-Common subdirectories: drivers/block/rsxx and ../block_backup/rsxx
-diff -c drivers/block/sbd.c ../block_backup/sbd.c
-*** drivers/block/sbd.c	2018-05-26 16:58:00.713644910 -0700
---- ../block_backup/sbd.c	2018-05-26 16:55:40.591209638 -0700
+Only in drivers/block/: loop.o
+Only in drivers/block/: .loop.o.cmd
+diff -c ../yocto_clean/linux-yocto-3.19/drivers/block/Makefile drivers/block/Makefile
+*** ../yocto_clean/linux-yocto-3.19/drivers/block/Makefile	2018-05-27 20:26:38.561847493 -0700
+--- drivers/block/Makefile	2018-05-27 20:12:28.042822608 -0700
+***************
+*** 25,30 ****
+--- 25,31 ----
+  obj-$(CONFIG_BLK_DEV_NVME)	+= nvme.o
+  obj-$(CONFIG_BLK_DEV_SKD)	+= skd.o
+  obj-$(CONFIG_BLK_DEV_OSD)	+= osdblk.o
++ obj-$(CONFIG_BLK_DEV_SBD)	+= sbd.o
+  
+  obj-$(CONFIG_BLK_DEV_UMEM)	+= umem.o
+  obj-$(CONFIG_BLK_DEV_NBD)	+= nbd.o
+Only in drivers/block/: modules.builtin
+Only in drivers/block/: modules.order
+Common subdirectories: ../yocto_clean/linux-yocto-3.19/drivers/block/mtip32xx and drivers/block/mtip32xx
+Only in drivers/block/: nbd.ko
+Only in drivers/block/: .nbd.ko.cmd
+Only in drivers/block/: nbd.mod.c
+Only in drivers/block/: nbd.mod.o
+Only in drivers/block/: .nbd.mod.o.cmd
+Only in drivers/block/: nbd.o
+Only in drivers/block/: .nbd.o.cmd
+Common subdirectories: ../yocto_clean/linux-yocto-3.19/drivers/block/paride and drivers/block/paride
+Common subdirectories: ../yocto_clean/linux-yocto-3.19/drivers/block/rsxx and drivers/block/rsxx
+diff -c ../yocto_clean/linux-yocto-3.19/drivers/block/sbd.c drivers/block/sbd.c
+*** ../yocto_clean/linux-yocto-3.19/drivers/block/sbd.c	2018-05-27 20:27:49.393014504 -0700
+--- drivers/block/sbd.c	2018-05-27 20:11:55.821281896 -0700
 ***************
 *** 0 ****
 --- 1,227 ----
@@ -253,5 +295,14 @@ diff -c drivers/block/sbd.c ../block_backup/sbd.c
 + 
 + module_init(sbd_init);
 + module_exit(sbd_exit);
-Common subdirectories: drivers/block/xen-blkback and ../block_backup/xen-blkback
-Common subdirectories: drivers/block/zram and ../block_backup/zram
+Only in drivers/block/: sbd.ko
+Only in drivers/block/: .sbd.ko.cmd
+Only in drivers/block/: sbd.mod.c
+Only in drivers/block/: sbd.mod.o
+Only in drivers/block/: .sbd.mod.o.cmd
+Only in drivers/block/: sbd.o
+Only in drivers/block/: .sbd.o.cmd
+Only in drivers/block/: virtio_blk.o
+Only in drivers/block/: .virtio_blk.o.cmd
+Common subdirectories: ../yocto_clean/linux-yocto-3.19/drivers/block/xen-blkback and drivers/block/xen-blkback
+Common subdirectories: ../yocto_clean/linux-yocto-3.19/drivers/block/zram and drivers/block/zram
