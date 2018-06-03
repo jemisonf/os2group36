@@ -1,10 +1,7 @@
-# CS 444 Homework 3
+# CS 444 Homework 4
 
 ## Links to Resources Used (Template for Block Driver and Crypto Stuff)
-### Discussion of Linux Device Drivers: https://lwn.net/Kernel/LDD3/
-### Link to Block Driver Source: (Used in project) http://blog.superpat.com/2010/05/04/a-simple-block-driver-for-linux-kernel-2-6-31/
-### This link also includes: the Makefile and Module examples to compare with CryptoLoop modules
-### This above Code was combined with the CrytoLoop enabling 
+### Slob Slab: https://casper.berkeley.edu/svn/trunk/roach/sw/linux/mm/slob.c
 ### Module Found here: https://elixir.bootlin.com/linux/v3.14.26/source/drivers/block/cryptoloop.c
 ### SOURCE FOR KERNEL MODULE COMMANDS: https://wiki.archlinux.org/index.php/Kernel_module
 ### Group 36: Arya Asgari, Scott Russell, Fischer Jemison
