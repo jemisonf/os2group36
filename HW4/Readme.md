@@ -24,3 +24,7 @@ Else
 ```
 
 This code will be placed in the `slob_alloc` function.
+
+## Testing our solution
+
+1. First, copy hw4.patch to the base of your linux directory. Then run `patch -p1 -i hw4.patch` to update your slob file.

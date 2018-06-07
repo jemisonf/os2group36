@@ -12,9 +12,9 @@ int main() {
     int i;
 	for (i = 0; i < 3; i++) {
 		fragmentation = (float)freeMemory / (float)claimedMemory;
-		printf("Claimed Memory: %lu\n", claimedMemory);
-		printf("Free Memory: %lu\n", freeMemory);
-		printf("Fragmentation: %f\n", fragmentation);
+		printf("Claimed Memory: \t%lu\n", claimedMemory);
+		printf("Free Memory: \t\t%lu\n", freeMemory);
+		printf("Fragmentation: \t\t%f\n", fragmentation);
 		printf("-----\n");
 		sleep(1);
 	}
